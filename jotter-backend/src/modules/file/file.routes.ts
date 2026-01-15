@@ -32,4 +32,19 @@ router.post("/duplicate/:FILE_ID", tokenVerifyingMiddleware, FileController.dupl
 // Text Update (Body te FILE_ID pathabo)
 router.put("/textFileTile", tokenVerifyingMiddleware, FileController.updateTextContent);
 
+// 1. Search Only Keyword
+router.post("/allSearch", tokenVerifyingMiddleware, FileController.allSearch);
+
+// 2. Search Keyword & Type
+router.post("/search", tokenVerifyingMiddleware, FileController.searchComplex);
+
+// 3. Filter by Type (Use /type/pdf instead of /list/pdf to avoid conflict with folder list)
+router.get("/type/:type", tokenVerifyingMiddleware, FileController.filterByType);
+
+// 4. Date Filter
+router.post("/dateFilterFile", tokenVerifyingMiddleware, FileController.dateFilter);
+
+// 5. Recent Files
+router.get("/recentFile", tokenVerifyingMiddleware, FileController.recentFiles);
+
 export const FileRoutes = router;

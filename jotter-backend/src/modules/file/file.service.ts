@@ -111,3 +111,51 @@ export const duplicateFile = async (email: string, fileId: string) => {
     createdAt: new Date(),
   });
 };
+
+
+// 1. Search by Keyword (Filename)
+export const searchFilesByKeyword = async (email: string, keyword: string) => {
+  return await FileModel.find({
+    userEmail: email,
+    fileName: { $regex: keyword, $options: "i" }, // Case insensitive
+  }).sort({ createdAt: -1 });
+};
+
+// 2. Search by Keyword AND Type
+export const searchByKeywordAndType = async (email: string, keyword: string, mimeType: string) => {
+  return await FileModel.find({
+    userEmail: email,
+    fileName: { $regex: keyword, $options: "i" },
+    mimeType: { $regex: mimeType, $options: "i" },
+  }).sort({ createdAt: -1 });
+};
+
+// 3. Filter by File Type (e.g., pdf, image)
+export const getFilesByType = async (email: string, type: string) => {
+  return await FileModel.find({
+    userEmail: email,
+    mimeType: { $regex: type, $options: "i" },
+  }).sort({ createdAt: -1 });
+};
+
+// 4. Filter by Date
+export const getFilesByDate = async (email: string, dateString: string) => {
+  const start = new Date(dateString);
+  start.setHours(0, 0, 0, 0);
+
+  const end = new Date(dateString);
+  end.setHours(23, 59, 59, 999);
+
+  return await FileModel.find({
+    userEmail: email,
+    createdAt: { $gte: start, $lte: end },
+  }).sort({ createdAt: -1 });
+};
+
+// 5. Get Recent Files (Last 5)
+export const getRecentFiles = async (email: string) => {
+  return await FileModel.find({ userEmail: email })
+    .sort({ createdAt: -1 })
+    .limit(5);
+};
+

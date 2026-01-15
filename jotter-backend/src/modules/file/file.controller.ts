@@ -84,3 +84,61 @@ export const duplicateFile = async (req: Request, res: Response) => {
     error_res(res, { statusCode: 400, message: error.message });
   }
 };
+
+
+// /allSearch
+export const allSearch = async (req: Request, res: Response) => {
+  try {
+    const { keyword } = req.body;
+    const result = await FileService.searchFilesByKeyword(req.user.email, keyword);
+    success_res(res, { statusCode: 200, message: "Search results", payload: result });
+  } catch (error: any) {
+    error_res(res, { statusCode: 400, message: error.message });
+  }
+};
+
+// /search (Keyword + Type)
+export const searchComplex = async (req: Request, res: Response) => {
+  try {
+    const { keyword, mimeType } = req.body;
+    const result = await FileService.searchByKeywordAndType(req.user.email, keyword, mimeType);
+    success_res(res, { statusCode: 200, message: "Search results", payload: result });
+  } catch (error: any) {
+    error_res(res, { statusCode: 400, message: error.message });
+  }
+};
+
+// /type/:type (Changed URL slightly to avoid conflict with list/:folderName)
+export const filterByType = async (req: Request, res: Response) => {
+  try {
+    const type = req.params.type as string; // e.g., 'pdf', 'image'
+    const result = await FileService.getFilesByType(req.user.email, type);
+    success_res(res, { statusCode: 200, message: `Files of type ${type}`, payload: result });
+  } catch (error: any) {
+    error_res(res, { statusCode: 400, message: error.message });
+  }
+};
+
+// /dateFilterFile
+export const dateFilter = async (req: Request, res: Response) => {
+  try {
+    const { date } = req.body; // Format: "YYYY-MM-DD"
+    const result = await FileService.getFilesByDate(req.user.email, date);
+    success_res(res, { statusCode: 200, message: "Files by date", payload: result });
+  } catch (error: any) {
+    error_res(res, { statusCode: 400, message: error.message });
+  }
+};
+
+// /recentFile
+export const recentFiles = async (req: Request, res: Response) => {
+  try {
+    const result = await FileService.getRecentFiles(req.user.email);
+    success_res(res, { statusCode: 200, message: "Recent files", payload: result });
+  } catch (error: any) {
+    error_res(res, { statusCode: 400, message: error.message });
+  }
+};
+
+
+
