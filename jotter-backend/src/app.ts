@@ -1,0 +1,48 @@
+import express, { Application, Request, Response, NextFunction } from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import { UserRoutes } from './modules/user/user.routes';
+import { AuthRoutes } from './modules/auth/auth.routes';
+
+const app: Application = express();
+
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+
+app.use(cors({
+    origin: process.env.CLIENT_URL || "http://localhost:5000", 
+}));
+
+
+app.get('/', (req: Request, res: Response) => {
+    res.status(200).json({ message: 'Jotter Backend is Running 🚀' });
+});
+
+// --- Application Routes ---
+app.use('/user', UserRoutes);
+app.use('/user', AuthRoutes);
+
+
+// 404 Not Found Handler
+app.use((req: Request, res: Response, next: NextFunction) => {
+    res.status(404).json({
+        statusCode: 404,
+        message: 'Route not found',
+    });
+});
+
+
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal Server Error';
+
+    res.status(statusCode).json({
+        statusCode,
+        message,
+    });
+});
+
+export default app;
