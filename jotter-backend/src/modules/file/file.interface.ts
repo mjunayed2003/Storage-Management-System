@@ -9,5 +9,6 @@ export interface IFile extends Document {
   size: number;
   path: string;
   fileURL: string;
+  favorite: boolean;
   createdAt: Date;
 }

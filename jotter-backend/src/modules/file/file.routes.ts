@@ -47,4 +47,14 @@ router.post("/dateFilterFile", tokenVerifyingMiddleware, FileController.dateFilt
 // 5. Recent Files
 router.get("/recentFile", tokenVerifyingMiddleware, FileController.recentFiles);
 
+// 1. Get All Favorite Files
+router.get("/favorite", tokenVerifyingMiddleware, FileController.getFavorites);
+
+// 2. Add/Remove Favorite (Toggle) using FILE_ID
+router.patch("/favorite/:FILE_ID", tokenVerifyingMiddleware, FileController.manageFavorite);
+
+// 3. Search in Favorites
+router.post("/fav_search", tokenVerifyingMiddleware, FileController.searchFavorites);
+
+
 export const FileRoutes = router;

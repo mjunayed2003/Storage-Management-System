@@ -1,6 +1,7 @@
 import mongoose, { Schema, Model } from "mongoose";
 import { IFile } from "./file.interface";
 
+
 const fileSchema = new Schema<IFile>(
   {
     userEmail: { type: String, required: true },
@@ -11,6 +12,7 @@ const fileSchema = new Schema<IFile>(
     size: { type: Number, required: true },
     path: { type: String, required: true },
     fileURL: { type: String, required: true },
+    favorite: { type: Boolean, default: false }, 
   },
   { timestamps: true, versionKey: false }
 );

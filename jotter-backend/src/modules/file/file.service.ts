@@ -144,7 +144,7 @@ export const getFilesByDate = async (email: string, dateString: string) => {
   start.setHours(0, 0, 0, 0);
 
   const end = new Date(dateString);
-  end.setHours(23, 59, 59, 999);
+  end.setHours(23, 59, 59, 999);    
 
   return await FileModel.find({
     userEmail: email,
@@ -157,5 +157,34 @@ export const getRecentFiles = async (email: string) => {
   return await FileModel.find({ userEmail: email })
     .sort({ createdAt: -1 })
     .limit(5);
+};
+
+// 1. Get All Favorite Files
+export const getFavoriteFiles = async (email: string) => {
+  return await FileModel.find({
+    userEmail: email,
+    favorite: true,
+  }).sort({ createdAt: -1 });
+};
+
+// 2. Toggle Favorite (Add/Remove)
+export const toggleFavorite = async (email: string, fileId: string) => {
+  const file = await FileModel.findOne({ _id: fileId, userEmail: email });
+  if (!file) throw new Error("File not found");
+
+  // যা আছে তার উল্টোটা হবে (True থাকলে False, False থাকলে True)
+  file.favorite = !file.favorite;
+  await file.save();
+
+  return file;
+};
+
+// 3. Search inside Favorites
+export const searchFavoriteFiles = async (email: string, keyword: string) => {
+  return await FileModel.find({
+    userEmail: email,
+    favorite: true,
+    fileName: { $regex: keyword, $options: "i" },
+  }).sort({ createdAt: -1 });
 };
 

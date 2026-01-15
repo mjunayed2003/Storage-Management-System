@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import { UserRoutes } from './modules/user/user.routes';
 import { AuthRoutes } from './modules/auth/auth.routes';
 import { FileRoutes } from './modules/file/file.routes';
+import { FolderRoutes } from './modules/folder/folder.routes';
 
 const app: Application = express();
 
@@ -25,7 +26,8 @@ app.get('/', (req: Request, res: Response) => {
 // --- Application Routes ---
 app.use('/user', UserRoutes);
 app.use('/user', AuthRoutes);
-app.use('/file',FileRoutes); 
+app.use('/file',FileRoutes);
+app.use('/folder', FolderRoutes);
 
 
 // 404 Not Found Handler

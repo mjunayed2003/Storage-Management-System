@@ -141,4 +141,38 @@ export const recentFiles = async (req: Request, res: Response) => {
 };
 
 
+// Get Favorites
+export const getFavorites = async (req: Request, res: Response) => {
+  try {
+    const result = await FileService.getFavoriteFiles(req.user.email);
+    success_res(res, { statusCode: 200, message: "Favorite files", payload: result });
+  } catch (error: any) {
+    error_res(res, { statusCode: 400, message: error.message });
+  }
+};
+
+// Toggle Favorite
+export const manageFavorite = async (req: Request, res: Response) => {
+  try {
+    const fileId = req.params.FILE_ID as string;
+    const result = await FileService.toggleFavorite(req.user.email, fileId);
+    
+    const statusMsg = result.favorite ? "Added to favorites" : "Removed from favorites";
+    success_res(res, { statusCode: 200, message: statusMsg, payload: result });
+  } catch (error: any) {
+    error_res(res, { statusCode: 400, message: error.message });
+  }
+};
+
+// Search Favorites
+export const searchFavorites = async (req: Request, res: Response) => {
+  try {
+    const { keyword } = req.body;
+    const result = await FileService.searchFavoriteFiles(req.user.email, keyword);
+    success_res(res, { statusCode: 200, message: "Search result in favorites", payload: result });
+  } catch (error: any) {
+    error_res(res, { statusCode: 400, message: error.message });
+  }
+};
+
 
