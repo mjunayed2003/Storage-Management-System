@@ -1,0 +1,832 @@
+{
+	"info": {
+		"_postman_id": "f4356e9d-1f05-4250-b44d-0056fdd64ba8",
+		"name": "Jotter Backend (Updated)",
+		"description": "Corrected API collection based on the provided app.ts and route files.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "System Management",
+			"item": [
+				{
+					"name": "Reset Database",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/resetDB",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"resetDB"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{EMAIL}}",
+									"type": "text"
+								},
+								{
+									"key": "userName",
+									"value": "junayed",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{PASSWORD}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/signUP",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"signUP"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{EMAIL}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{PASSWORD}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/signIn",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"signIn"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check If Logged In",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/user/isLogged",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"isLogged"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/user/logout",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Management",
+			"item": [
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "oldPassword",
+									"value": "{{PASSWORD}}",
+									"type": "text"
+								},
+								{
+									"key": "newPassword",
+									"value": "NewPassword123@",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/changePassword",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"changePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Username",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userName",
+									"value": "junayed_updated",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/changeUserName",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"changeUserName"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Profile Picture",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profile",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/fileM",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"fileM"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Account",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/accountDelete",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"accountDelete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Password Recovery",
+			"item": [
+				{
+					"name": "Forgot Password - Send OTP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{EMAIL}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/forgotEmailSender",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"forgotEmailSender"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify OTP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{EMAIL}}",
+									"type": "text"
+								},
+								{
+									"key": "otp",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/otpChecker",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"otpChecker"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set New Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "paste_otp_token_here",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{EMAIL}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "NewPassword123@",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/newPassword",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"newPassword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File Management",
+			"item": [
+				{
+					"name": "Upload File",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/file/upload/resume",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"upload",
+								"resume"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Files by Type",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/file/list/image",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"list",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Folder Files",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/file/folderFiles?folderName=root",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"folderFiles"
+							],
+							"query": [
+								{
+									"key": "folderName",
+									"value": "root"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Storage Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/file/fileDetails",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"fileDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recent Files",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/file/recentFile",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"recentFile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rename File",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "newName",
+									"value": "new_name.pdf",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/file/rename/FILE_ID",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"rename",
+								"FILE_ID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete File",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/file/fileDelete/FILE_ID",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"fileDelete",
+								"FILE_ID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Text Content",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "content",
+									"value": "Updated content",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "FILE_ID",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/file/fileTExtUpdate",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"fileTExtUpdate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Duplicate File",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/file/duplicate/FILE_ID",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"duplicate",
+								"FILE_ID"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File Search & Filter",
+			"item": [
+				{
+					"name": "Search Files",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "keyword",
+									"value": "resume",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/file/allSearch",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"allSearch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search by Keyword & Type",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "keyword",
+									"value": "resume",
+									"type": "text"
+								},
+								{
+									"key": "mimeType",
+									"value": "pdf",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/file/search",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by Date",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "date",
+									"value": "2025-01-01",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/file/dateFilterFile",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"dateFilterFile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Favorites Management",
+			"item": [
+				{
+					"name": "Get All Favorites",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/file/favorite",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"favorite"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle Favorite",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/file/favorite/FILE_ID",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"favorite",
+								"FILE_ID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Favorite Files",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "keyword",
+									"value": "important",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/file/fav_search",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"fav_search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Folder Management",
+			"item": [
+				{
+					"name": "Create Folder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "folderName",
+									"value": "New Folder",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/folderCreate",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"folderCreate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Folders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/allFOlders",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"allFOlders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Folder",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/folderDelete/FOLDER_ID",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"folderDelete",
+								"FOLDER_ID"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "EMAIL",
+			"value": "junayedm22222@gmail.com",
+			"type": "string"
+		},
+		{
+			"key": "PASSWORD",
+			"value": "junayed12345",
+			"type": "string"
+		}
+	]
+}
