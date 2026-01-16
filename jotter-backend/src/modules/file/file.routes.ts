@@ -16,7 +16,7 @@ router.post("/upload/:folderName",
 router.post("/list/:type", tokenVerifyingMiddleware, FileController.filterByType);
 
 
-router.get("/folderFiles/:folderName", tokenVerifyingMiddleware, FileController.listFiles);
+router.get("/folderFiles", tokenVerifyingMiddleware, FileController.listFiles);
 
 
 router.get("/fileDetails", tokenVerifyingMiddleware, FileController.fileDetails);

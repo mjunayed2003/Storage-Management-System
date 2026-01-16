@@ -19,9 +19,10 @@ export const uploadFile = async (email: string, folderName: string, file: Expres
 };
 
 // 2. List Files in Folder
-export const getFilesByFolder = async (email: string, folderName: string) => {
-  return await FileModel.find({ userEmail: email, folderName }).sort({ createdAt: -1 });
+export const getAllFiles = async (email: string) => {
+  return await FileModel.find({ userEmail: email }).sort({ createdAt: -1 });
 };
+
 
 // 3. Storage Details
 export const getStorageDetails = async (email: string) => {

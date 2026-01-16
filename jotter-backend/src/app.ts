@@ -31,7 +31,7 @@ app.get('/', (req: Request, res: Response) => {
 // --- Application Routes ---
 app.use('/', UserRoutes);
 app.use('/', AuthRoutes);
-app.use('/',FileRoutes);
+app.use('/file',FileRoutes);
 app.use('/', FolderRoutes);
 app.get('/resetDB', resetDatabase); 
 

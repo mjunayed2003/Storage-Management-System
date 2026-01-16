@@ -17,14 +17,18 @@ export const uploadFile = async (req: Request, res: Response) => {
 
 export const listFiles = async (req: Request, res: Response) => {
   try {
-    const folderName = req.params.folderName as string;
+    const result = await FileService.getAllFiles(req.user.email);
 
-    const result = await FileService.getFilesByFolder(req.user.email, folderName);
-    success_res(res, { statusCode: 200, message: "File list", payload: result });
+    success_res(res, {
+      statusCode: 200,
+      message: "All files",
+      payload: result,
+    });
   } catch (error: any) {
     error_res(res, { statusCode: 400, message: error.message });
   }
 };
+
 
 export const fileDetails = async (req: Request, res: Response) => {
   try {

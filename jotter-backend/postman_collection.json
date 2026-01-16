@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "e76e4504-f9df-4943-9de4-ab7b35e61991",
-		"name": "Jotter-backend",
-		"description": "Complete API collection for Jotter File Manager Backend - including authentication, file management, folder operations, and user management endpoints.",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29048619"
+		"_postman_id": "f4356e9d-1f05-4250-b44d-0056fdd64ba8",
+		"name": "Jotter Backend (Updated)",
+		"description": "Corrected API collection based on the provided app.ts and route files.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -187,7 +186,7 @@
 							"urlencoded": [
 								{
 									"key": "userName",
-									"value": "update junayed",
+									"value": "junayed_updated",
 									"type": "text"
 								}
 							]
@@ -216,18 +215,18 @@
 								{
 									"key": "profile",
 									"type": "file",
-									"src": "/home/md-junayed/Downloads/IMG-20251113-WA0008.jpg"
+									"src": []
 								}
 							]
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/user/upload-profile-pic",
+							"raw": "{{BASE_URL}}/user/fileM",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"user",
-								"upload-profile-pic"
+								"fileM"
 							]
 						}
 					},
@@ -243,14 +242,12 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/user/deleteAccount/",
+							"raw": "{{BASE_URL}}/accountDelete",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
-								"user",
-								"deleteAccount",
-								""
+								"accountDelete"
 							]
 						}
 					},
@@ -374,9 +371,9 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "file",
+									"key": "files",
 									"type": "file",
-									"src": "/home/md-junayed/Downloads/acas.pdf"
+									"src": []
 								}
 							]
 						},
@@ -395,50 +392,87 @@
 					"response": []
 				},
 				{
-					"name": "Get Files in Folder",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
+					"name": "List Files by Type",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/file/list/resume",
+							"raw": "{{BASE_URL}}/file/list/image",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"file",
 								"list",
-								"resume"
+								"image"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get All Files (Storage Details)",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
+					"name": "Get Folder Files",
 					"request": {
 						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/file/folderFiles?folderName=root",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"folderFiles"
+							],
+							"query": [
+								{
+									"key": "folderName",
+									"value": "root"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Storage Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/file/fileDetails",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"fileDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recent Files",
+					"request": {
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/fileDetails",
+							"raw": "{{BASE_URL}}/file/recentFile",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
-								"fileDetails"
+								"file",
+								"recentFile"
 							]
 						}
 					},
@@ -454,20 +488,20 @@
 							"urlencoded": [
 								{
 									"key": "newName",
-									"value": "cv.pdf",
+									"value": "new_name.pdf",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/file/rename/696944fbc5c987296c7c1476",
+							"raw": "{{BASE_URL}}/file/rename/FILE_ID",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"file",
 								"rename",
-								"696944fbc5c987296c7c1476"
+								"FILE_ID"
 							]
 						}
 					},
@@ -478,26 +512,22 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
 						"url": {
-							"raw": "{{BASE_URL}}/file/fileDelete/696944fbc5c987296c7c1476",
+							"raw": "{{BASE_URL}}/file/fileDelete/FILE_ID",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"file",
 								"fileDelete",
-								"696944fbc5c987296c7c1476"
+								"FILE_ID"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Update Text File Content",
+					"name": "Update Text Content",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -506,7 +536,7 @@
 							"urlencoded": [
 								{
 									"key": "content",
-									"value": "Updated file content here",
+									"value": "Updated content",
 									"type": "text"
 								},
 								{
@@ -517,65 +547,30 @@
 							]
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/textFileTile",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"textFileTile"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Text File Title",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "title",
-									"value": "New File Title",
-									"type": "text"
-								},
-								{
-									"key": "id",
-									"value": "69694729a17687e5a5e922fc",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{BASE_URL}}/file/textFileTile",
+							"raw": "{{BASE_URL}}/file/fileTExtUpdate",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"file",
-								"textFileTile"
+								"fileTExtUpdate"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Check for Duplicate File",
+					"name": "Duplicate File",
 					"request": {
 						"method": "POST",
 						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
 						"url": {
-							"raw": "{{BASE_URL}}/duplicate/FILE_ID",
+							"raw": "{{BASE_URL}}/file/duplicate/FILE_ID",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
+								"file",
 								"duplicate",
 								"FILE_ID"
 							]
@@ -589,7 +584,7 @@
 			"name": "File Search & Filter",
 			"item": [
 				{
-					"name": "Search Files by Keyword",
+					"name": "Search Files",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -598,7 +593,7 @@
 							"urlencoded": [
 								{
 									"key": "keyword",
-									"value": "resumi",
+									"value": "resume",
 									"type": "text"
 								}
 							]
@@ -637,38 +632,13 @@
 							]
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/search",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"search"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Filter by File Type",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
-						"url": {
-							"raw": "{{BASE_URL}}/file/list/pdf",
+							"raw": "{{BASE_URL}}/file/search",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"file",
-								"list",
-								"pdf"
+								"search"
 							]
 						}
 					},
@@ -684,43 +654,19 @@
 							"urlencoded": [
 								{
 									"key": "date",
-									"value": "2025-09-27",
+									"value": "2025-01-01",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/dateFilterFile",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"dateFilterFile"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Recent Files",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
-						"url": {
-							"raw": "{{BASE_URL}}/file/recentFile",
+							"raw": "{{BASE_URL}}/file/dateFilterFile",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"file",
-								"recentFile"
+								"dateFilterFile"
 							]
 						}
 					},
@@ -732,17 +678,10 @@
 			"name": "Favorites Management",
 			"item": [
 				{
-					"name": "Get All Favorite Files",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
+					"name": "Get All Favorites",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
 						"url": {
 							"raw": "{{BASE_URL}}/file/favorite",
 							"host": [
@@ -757,20 +696,17 @@
 					"response": []
 				},
 				{
-					"name": "Add File to Favorites",
+					"name": "Toggle Favorite",
 					"request": {
-						"method": "PATCH",
+						"method": "POST",
 						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
 						"url": {
-							"raw": "{{BASE_URL}}/favorite/FILE_ID",
+							"raw": "{{BASE_URL}}/file/favorite/FILE_ID",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
+								"file",
 								"favorite",
 								"FILE_ID"
 							]
@@ -779,7 +715,7 @@
 					"response": []
 				},
 				{
-					"name": "Search Favorite Files by Keyword",
+					"name": "Search Favorite Files",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -788,17 +724,18 @@
 							"urlencoded": [
 								{
 									"key": "keyword",
-									"value": "shamim",
+									"value": "important",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/fav_search",
+							"raw": "{{BASE_URL}}/file/fav_search",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
+								"file",
 								"fav_search"
 							]
 						}
@@ -820,7 +757,7 @@
 							"urlencoded": [
 								{
 									"key": "folderName",
-									"value": "new folder",
+									"value": "New Folder",
 									"type": "text"
 								}
 							]
@@ -839,23 +776,15 @@
 				},
 				{
 					"name": "Get All Folders",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
 						"url": {
-							"raw": "{{BASE_URL}}/folder/allFOlders",
+							"raw": "{{BASE_URL}}/allFOlders",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
-								"folder",
 								"allFOlders"
 							]
 						}
@@ -867,19 +796,14 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
 						"url": {
-							"raw": "{{BASE_URL}}/folder/folderDelete/69694e037951d6e5b648aed7",
+							"raw": "{{BASE_URL}}/folderDelete/FOLDER_ID",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
-								"folder",
 								"folderDelete",
-								"69694e037951d6e5b648aed7"
+								"FOLDER_ID"
 							]
 						}
 					},
