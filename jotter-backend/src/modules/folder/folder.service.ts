@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import FoldersModel from "./folder.model"; // Default Import (যেহেতু আগের মডেলে export default ছিল)
+import FoldersModel from "./folder.model"; 
 import { FileModel } from "../file/file.model"; 
 
 // 1. Create Folder

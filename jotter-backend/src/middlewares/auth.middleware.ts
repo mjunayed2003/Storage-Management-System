@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import { error_res } from "../utils/responseHandler";
 import { UserModel } from "../modules/user/user.model";
 
-// Extend Express Request to include user
 declare global {
   namespace Express {
     interface Request {
@@ -24,14 +23,12 @@ export const tokenVerifyingMiddleware = async (
       return error_res(res, { statusCode: 401, message: "Unauthorized access" });
     }
 
-    // Verify token
     const decoded: any = jwt.verify(token, process.env.JWT_SECRET as string);
 
     if (!decoded) {
       return error_res(res, { statusCode: 403, message: "Invalid token" });
     }
 
-    // Attach user to request
     const user = await UserModel.findOne({ email: decoded.email });
     if (!user) {
       return error_res(res, { statusCode: 404, message: "User not found" });

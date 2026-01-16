@@ -5,12 +5,11 @@ import passport from "passport";
 
 const router = Router();
 
-// Public Route
+
 router.post("/signIn", AuthController.signIn);
 
-// Protected Routes (Token Required)
 router.get("/isLogged", tokenVerifyingMiddleware, AuthController.isLogged);
-router.post("/logout", AuthController.logout); // 
+router.post("/logout", AuthController.logout); 
 
 
 

@@ -42,8 +42,7 @@ export const fileDetails = async (req: Request, res: Response) => {
 export const renameFile = async (req: Request, res: Response) => {
   try {
     const { newName } = req.body;
-    
-    // Update: id -> FILE_ID
+
     const fileId = req.params.FILE_ID as string;
 
     const result = await FileService.renameFile(req.user.email, fileId, newName);
@@ -55,7 +54,7 @@ export const renameFile = async (req: Request, res: Response) => {
 
 export const deleteFile = async (req: Request, res: Response) => {
   try {
-    // Update: id -> FILE_ID
+
     const fileId = req.params.FILE_ID as string;
 
     await FileService.deleteFile(req.user.email, fileId);
@@ -67,7 +66,7 @@ export const deleteFile = async (req: Request, res: Response) => {
 
 export const updateTextContent = async (req: Request, res: Response) => {
   try {
-    // Update: id -> FILE_ID (Body তেও FILE_ID নামেই রিসিভ করবে)
+
     const { content, FILE_ID } = req.body; 
     
     const result = await FileService.updateTextContent(req.user.email, FILE_ID, content);
@@ -79,7 +78,7 @@ export const updateTextContent = async (req: Request, res: Response) => {
 
 export const duplicateFile = async (req: Request, res: Response) => {
   try {
-    // Update: id -> FILE_ID
+
     const fileId = req.params.FILE_ID as string;
 
     const result = await FileService.duplicateFile(req.user.email, fileId);
@@ -115,7 +114,7 @@ export const searchComplex = async (req: Request, res: Response) => {
 // /type/:type (Changed URL slightly to avoid conflict with list/:folderName)
 export const filterByType = async (req: Request, res: Response) => {
   try {
-    const type = req.params.type as string; // e.g., 'pdf', 'image'
+    const type = req.params.type as string;
     const result = await FileService.getFilesByType(req.user.email, type);
     success_res(res, { statusCode: 200, message: `Files of type ${type}`, payload: result });
   } catch (error: any) {
@@ -126,7 +125,7 @@ export const filterByType = async (req: Request, res: Response) => {
 // /dateFilterFile
 export const dateFilter = async (req: Request, res: Response) => {
   try {
-    const { date } = req.body; // Format: "YYYY-MM-DD"
+    const { date } = req.body;
     const result = await FileService.getFilesByDate(req.user.email, date);
     success_res(res, { statusCode: 200, message: "Files by date", payload: result });
   } catch (error: any) {

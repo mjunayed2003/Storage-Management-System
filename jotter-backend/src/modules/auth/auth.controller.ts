@@ -3,23 +3,23 @@ import * as AuthService from "./auth.service";
 import { success_res, error_res } from "../../utils/responseHandler";
 import { generateToken } from "../../utils/jwtHelper";
 
-// Sign In Controller
+
 export const signIn = async (req: Request, res: Response) => {
   try {
     const { user, token } = await AuthService.loginUser(req.body);
 
-    // Set Cookie
+
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Secure in prod
+      secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      maxAge: 7 * 24 * 60 * 60 * 1000, 
     });
 
     success_res(res, {
       statusCode: 200,
       message: "Login successful",
-      payload: { token }, // Optional: send token in body too
+      payload: { token }, 
     });
   } catch (error: any) {
     error_res(res, { statusCode: 401, message: error.message });
@@ -29,7 +29,6 @@ export const signIn = async (req: Request, res: Response) => {
 // Check if Logged In
 export const isLogged = async (req: Request, res: Response) => {
   try {
-    // req.user is populated by the middleware
     success_res(res, {
       statusCode: 200,
       message: "User is authenticated",

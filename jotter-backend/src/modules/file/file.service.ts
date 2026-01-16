@@ -18,7 +18,7 @@ export const uploadFile = async (email: string, folderName: string, file: Expres
   });
 };
 
-// 2. List Files in Folder
+
 export const getAllFiles = async (email: string) => {
   return await FileModel.find({ userEmail: email }).sort({ createdAt: -1 });
 };
@@ -48,12 +48,11 @@ export const renameFile = async (email: string, fileId: string, newName: string)
   const dir = path.dirname(file.path);
   const newPath = path.join(dir, newName);
 
-  // Rename on Disk
+
   if (fs.existsSync(file.path)) {
     fs.renameSync(file.path, newPath);
   }
 
-  // Update DB
   return await FileModel.findByIdAndUpdate(
     fileId,
     { fileName: newName, path: newPath },
@@ -66,12 +65,12 @@ export const deleteFile = async (email: string, fileId: string) => {
   const file = await FileModel.findOne({ _id: fileId, userEmail: email });
   if (!file) throw new Error("File not found");
 
-  // Delete from Disk
+
   if (fs.existsSync(file.path)) {
     fs.unlinkSync(file.path);
   }
 
-  // Delete from DB
+
   await FileModel.findByIdAndDelete(fileId);
   return true;
 };
@@ -81,10 +80,10 @@ export const updateTextContent = async (email: string, fileId: string, content: 
   const file = await FileModel.findOne({ _id: fileId, userEmail: email });
   if (!file) throw new Error("File not found");
 
-  // Write new content to disk
+
   fs.writeFileSync(file.path, content, "utf-8");
 
-  // Update size in DB
+
   const stats = fs.statSync(file.path);
   file.size = stats.size;
   await file.save();
@@ -100,13 +99,12 @@ export const duplicateFile = async (email: string, fileId: string) => {
   const newName = "copy_" + file.fileName;
   const newPath = path.join(path.dirname(file.path), newName);
 
-  // Copy on Disk
+
   fs.copyFileSync(file.path, newPath);
 
-  // Create new DB Entry
   return await FileModel.create({
     ...file.toObject(),
-    _id: undefined, // New ID
+    _id: undefined,
     fileName: newName,
     path: newPath,
     createdAt: new Date(),
@@ -118,7 +116,7 @@ export const duplicateFile = async (email: string, fileId: string) => {
 export const searchFilesByKeyword = async (email: string, keyword: string) => {
   return await FileModel.find({
     userEmail: email,
-    fileName: { $regex: keyword, $options: "i" }, // Case insensitive
+    fileName: { $regex: keyword, $options: "i" }, 
   }).sort({ createdAt: -1 });
 };
 
@@ -173,7 +171,7 @@ export const toggleFavorite = async (email: string, fileId: string) => {
   const file = await FileModel.findOne({ _id: fileId, userEmail: email });
   if (!file) throw new Error("File not found");
 
-  // যা আছে তার উল্টোটা হবে (True থাকলে False, False থাকলে True)
+
   file.favorite = !file.favorite;
   await file.save();
 
