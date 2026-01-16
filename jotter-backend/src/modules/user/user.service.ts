@@ -1,6 +1,6 @@
 import { UserModel } from "./user.model";
-import FoldersModel from "../folder/folder.model"; // Assuming folder model exists
-import { hashTextGeneration } from "../../utils/hashGenerator"; // Your utility
+import FoldersModel from "../folder/folder.model";
+import { hashTextGeneration } from "../../utils/hashGenerator";
 import { IUser } from "./user.interface";
 import bcryptjs from "bcryptjs";
 import fs from "fs";

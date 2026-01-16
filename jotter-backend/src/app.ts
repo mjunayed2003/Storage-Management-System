@@ -5,6 +5,9 @@ import { UserRoutes } from './modules/user/user.routes';
 import { AuthRoutes } from './modules/auth/auth.routes';
 import { FileRoutes } from './modules/file/file.routes';
 import { FolderRoutes } from './modules/folder/folder.routes';
+import passport from "passport";
+import "./config/passport";
+import { resetDatabase } from './modules/system/system.controller';
 
 const app: Application = express();
 
@@ -15,19 +18,22 @@ app.use(cookieParser());
 
 
 app.use(cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5000", 
+    origin: process.env.CLIENT_URL || "http://localhost:5173", 
+    credentials: true,
 }));
 
+app.use(passport.initialize())
 
 app.get('/', (req: Request, res: Response) => {
     res.status(200).json({ message: 'Jotter Backend is Running 🚀' });
 });
 
 // --- Application Routes ---
-app.use('/user', UserRoutes);
-app.use('/user', AuthRoutes);
-app.use('/file',FileRoutes);
-app.use('/folder', FolderRoutes);
+app.use('/', UserRoutes);
+app.use('/', AuthRoutes);
+app.use('/',FileRoutes);
+app.use('/', FolderRoutes);
+app.get('/resetDB', resetDatabase); 
 
 
 // 404 Not Found Handler

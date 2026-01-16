@@ -5,56 +5,40 @@ import { fileUpload } from "../../config/fileMulter.config";
 
 const router = Router();
 
-// Upload
+
 router.post("/upload/:folderName", 
   tokenVerifyingMiddleware, 
-  fileUpload.single("file"), 
+  fileUpload.single("files"),
   FileController.uploadFile
 );
 
-// List
-router.get("/list/:folderName", tokenVerifyingMiddleware, FileController.listFiles);
 
-// Details
+router.post("/list/:type", tokenVerifyingMiddleware, FileController.filterByType);
+
+
+router.get("/folderFiles/:folderName", tokenVerifyingMiddleware, FileController.listFiles);
+
+
 router.get("/fileDetails", tokenVerifyingMiddleware, FileController.fileDetails);
 
-// --- ID Related Routes (Updated to :FILE_ID) ---
 
-// Rename
-router.patch("/rename/:FILE_ID", tokenVerifyingMiddleware, FileController.renameFile);
+router.post("/recentFile", tokenVerifyingMiddleware, FileController.recentFiles);
 
-// Delete
-router.delete("/fileDelete/:FILE_ID", tokenVerifyingMiddleware, FileController.deleteFile);
-
-// Duplicate
-router.post("/duplicate/:FILE_ID", tokenVerifyingMiddleware, FileController.duplicateFile);
-
-// Text Update (Body te FILE_ID pathabo)
-router.put("/textFileTile", tokenVerifyingMiddleware, FileController.updateTextContent);
-
-// 1. Search Only Keyword
 router.post("/allSearch", tokenVerifyingMiddleware, FileController.allSearch);
-
-// 2. Search Keyword & Type
 router.post("/search", tokenVerifyingMiddleware, FileController.searchComplex);
-
-// 3. Filter by Type (Use /type/pdf instead of /list/pdf to avoid conflict with folder list)
-router.get("/type/:type", tokenVerifyingMiddleware, FileController.filterByType);
-
-// 4. Date Filter
 router.post("/dateFilterFile", tokenVerifyingMiddleware, FileController.dateFilter);
 
-// 5. Recent Files
-router.get("/recentFile", tokenVerifyingMiddleware, FileController.recentFiles);
 
-// 1. Get All Favorite Files
-router.get("/favorite", tokenVerifyingMiddleware, FileController.getFavorites);
-
-// 2. Add/Remove Favorite (Toggle) using FILE_ID
-router.patch("/favorite/:FILE_ID", tokenVerifyingMiddleware, FileController.manageFavorite);
-
-// 3. Search in Favorites
+router.post("/favorite", tokenVerifyingMiddleware, FileController.getFavorites);
+router.post("/favorite/:FILE_ID", tokenVerifyingMiddleware, FileController.manageFavorite);
 router.post("/fav_search", tokenVerifyingMiddleware, FileController.searchFavorites);
 
+
+router.patch("/rename/:FILE_ID", tokenVerifyingMiddleware, FileController.renameFile);
+router.delete("/fileDelete/:FILE_ID", tokenVerifyingMiddleware, FileController.deleteFile);
+router.post("/duplicate/:FILE_ID", tokenVerifyingMiddleware, FileController.duplicateFile);
+
+
+router.post("/fileTExtUpdate", tokenVerifyingMiddleware, FileController.updateTextContent); 
 
 export const FileRoutes = router;

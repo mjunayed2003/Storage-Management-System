@@ -1,33 +1,32 @@
 import { Router } from "express";
 import * as UserController from "./user.controller";
+import * as AuthController from "../auth/auth.controller"; 
 import { tokenVerifyingMiddleware } from "../../middlewares/auth.middleware";
 import { upload } from "../../config/multer.config";
 
 const router = Router();
 
-// Public Routes
-router.post("/signUP", UserController.registerUser);
 
-// Private Routes (Requires Token)
-router.get("/me", tokenVerifyingMiddleware, UserController.getMyProfile);
-router.post("/changeUserName", tokenVerifyingMiddleware, UserController.changeUserName);
+router.post("/user/signUP", UserController.registerUser);
+router.post("/user/signIn", AuthController.signIn);
+router.get("/user/isLogged", tokenVerifyingMiddleware, AuthController.isLogged);
+router.get("/user/logout", AuthController.logout);
 
-router.post("/changePassword", tokenVerifyingMiddleware, UserController.changePassword);
 
-// Upload Profile Pic (Corresponds to your "fileM")
-router.post("/upload-profile-pic", 
+router.post("/user/forgotEmailSender", UserController.forgotEmailSender);
+router.post("/user/otpChecker", UserController.otpChecker);
+router.post("/user/newPassword", UserController.newPassword);
+
+
+router.post("/user/changePassword", tokenVerifyingMiddleware, UserController.changePassword);
+router.post("/user/changeUserName", tokenVerifyingMiddleware, UserController.changeUserName);
+
+router.post("/user/fileM", 
   tokenVerifyingMiddleware, 
-  upload.single("profile"), // "profile" is the key name in form-data
+  upload.single("profile"), 
   UserController.uploadProfilePic
 );
 
-// Delete Account
-router.delete("/deleteAccount", tokenVerifyingMiddleware, UserController.deleteAccount);
-
-
-// Forgot Password Routes
-router.post("/forgotEmailSender", UserController.forgotEmailSender);
-router.post("/otpChecker", UserController.otpChecker);
-router.post("/newPassword", UserController.newPassword);
+router.delete("/accountDelete", tokenVerifyingMiddleware, UserController.deleteAccount);
 
 export const UserRoutes = router;
